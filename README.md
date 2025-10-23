@@ -7,10 +7,10 @@
 
 <h2>Cómo se juega</h2>
 
-<p>El jugador empieza con <strong>100 de dinero</strong> y antes de cada partida elige cuánto apostar. Si intenta apostar más de lo que tiene, el programa lo detecta y pide una cantidad válida.  
+<p>El jugador empieza con <strong>100 de dinero</strong> y antes de cada partida elige cuánto apostar.   
 Una vez hecha la apuesta, se reparten dos cartas al jugador y dos al dealer, aunque solo se muestra una del dealer. Los <strong>Ases</strong> pueden valer <strong>1 u 11</strong> según convenga para no pasarse de 21.</p>
 
-<p>El jugador puede decidir si pide una carta más o se planta, hasta un máximo de cuatro cartas. Después el dealer juega su turno automáticamente: pide si tiene menos de 17 y se planta si tiene 17 o más. Esto mantiene el juego simple pero coherente con las reglas básicas.</p>
+<p>El jugador puede decidir si pide una carta más o se planta, hasta un máximo de cuatro cartas. Después el dealer juega su turno automáticamente: pide si tiene menos de 17 y se planta si tiene 17 o más.</p>
 
 <h2>Final de la ronda</h2>
 
