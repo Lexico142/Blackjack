@@ -1,4 +1,3 @@
-
 # Explicación del programa
 
 
@@ -8,13 +7,22 @@
 
 <h2>Cómo se juega</h2>
 
-<p>El jugador empieza con 100 de dinero y, antes de cada partida, elige cuánto apostar. Si intenta apostar más de lo que tiene, el programa lo corrige automáticamente. Después se reparten dos cartas al jugador y dos al dealer, aunque solo se muestra una del dealer. Los Ases pueden valer 1 u 11, según convenga para no pasarse.</p>
+<p>El jugador empieza con <strong>100 de dinero</strong> y antes de cada partida elige cuánto apostar. Si intenta apostar más de lo que tiene, el programa lo detecta y pide una cantidad válida.  
+Una vez hecha la apuesta, se reparten dos cartas al jugador y dos al dealer, aunque solo se muestra una del dealer. Los <strong>Ases</strong> pueden valer <strong>1 u 11</strong> según convenga para no pasarse de 21.</p>
 
-<p>El jugador puede decidir si pide más cartas o se planta, hasta un máximo de cuatro. Luego el dealer juega su turno automáticamente: si tiene menos de 17 pide carta, y si llega o supera 17 se planta. Así se mantiene una lógica sencilla pero parecida a la real.</p>
+<p>El jugador puede decidir si pide una carta más o se planta, hasta un máximo de cuatro cartas. Después el dealer juega su turno automáticamente: pide si tiene menos de 17 y se planta si tiene 17 o más. Esto mantiene el juego simple pero coherente con las reglas básicas.</p>
 
 <h2>Final de la ronda</h2>
 
-<p>Cuando ambos terminan, se comparan los resultados. Si el jugador consigue 21 con las dos primeras cartas, hace Blackjack y gana más dinero. Si se pasa, pierde. Si el dealer se pasa, gana el jugador. En caso de empate, se devuelve la apuesta. Después se muestran las estadísticas y se puede seguir jugando o salir.</p>
+<p>Cuando ambos terminan, se comparan los totales:</p>
+<ul>
+  <li>Si el jugador consigue 21 con las dos primeras cartas, gana un <strong>Blackjack</strong>.</li>
+  <li>Si se pasa de 21, pierde.</li>
+  <li>Si el dealer se pasa, gana el jugador.</li>
+  <li>Si empatan, se devuelve la apuesta.</li>
+</ul>
+
+<p>Al final se muestran las estadísticas, el dinero disponible y se pregunta si el jugador quiere seguir jugando o salir.</p>
 
 <h2>Detalles del juego</h2>
 
