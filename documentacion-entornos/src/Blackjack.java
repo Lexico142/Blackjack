@@ -21,7 +21,6 @@ public class Blackjack {
         Scanner src = new Scanner(System.in);
         boolean salir = false; // Controla el bucle principal del juego
         double dinero = 100; // Dinero inicial del jugador
-        double winrate; // Tasa de victorias
         int ganadas = 0; // Contador de partidas ganadas
         int perdidas = 0; // Contador de partidas perdidas
         int partidas = 0; // Contador total de partidas
@@ -35,7 +34,6 @@ public class Blackjack {
 
             int totalJugador = 0; // Suma total de cartas del jugador
             int totalDealer = 0; // Suma total de cartas del dealer
-            int turnos = 0; // Contador de turnos (para detectar blackjack natural)
             boolean apuestaInvalida = false;
 
             // Bucle para validar la apuesta
@@ -56,56 +54,64 @@ public class Blackjack {
             dealerCarta2 = generarCarta();
             System.out.println("Dealer: " + dealerCarta1); // Solo se muestra una carta del dealer
             totalDealer = dealerCarta1 + dealerCarta2;
+            totalDealer = valorAsDealer(totalDealer);
+
 
             // El dealer pide carta si tiene menos de 17 (regla estándar del blackjack)
             if (totalDealer < 17) {
                 dealerCarta3 = generarCarta();
                 totalDealer += dealerCarta3;
+                totalDealer = valorAsDealer(totalDealer);
+
             }
             // El dealer pide una cuarta carta si aún tiene menos de 17
             if (totalDealer < 17) {
                 dealerCarta4 = generarCarta();
                 totalDealer += dealerCarta4;
+                totalDealer = valorAsDealer(totalDealer);
             }
 
             // El jugador recibe sus dos primeras cartas
             jugadorCarta1 = generarCarta();
             jugadorCarta2 = generarCarta();
             totalJugador = jugadorCarta1 + jugadorCarta2;
+            totalJugador = valorAs(totalJugador);
+
 
             // Muestra las cartas del jugador y pregunta si quiere pedir más
             System.out.println("Jugador: " + jugadorCarta1 + " " + jugadorCarta2);
             System.out.println("Quieres pedir una carta? (true/false)");
             boolean pedirCarta = src.nextBoolean();
 
-            // Si el jugador decide pedir carta
             if (pedirCarta) {
-                // Bucle para pedir cartas adicionales
-                while (totalJugador < 21) {
-                    jugadorCarta3 = generarCarta();
-                    totalJugador += jugadorCarta3;
-                    if (totalJugador >= 21) break; // Se detiene si llega a 21 o se pasa
+                // Pedir tercera carta
+                jugadorCarta3 = generarCarta();
+                totalJugador += jugadorCarta3;
+                totalJugador = valorAs(totalJugador);
 
-                    // Muestra el estado actual y pregunta si quiere otra carta
+                if (totalJugador >= 21) {
+                    // No hacer nada más, salir
+                } else {
+                    // Mostrar estado y preguntar por cuarta carta
                     System.out.println("Dealer: " + dealerCarta1);
                     System.out.println("Jugador: " + jugadorCarta1 + " " + jugadorCarta2 + " " + jugadorCarta3);
                     System.out.println("Quieres pedir una carta? (true/false)");
                     pedirCarta = src.nextBoolean();
-                    turnos += 1; // Incrementa el contador de turnos
 
-                    // Si pide una cuarta carta (máximo permitido)
                     if (pedirCarta) {
                         jugadorCarta4 = generarCarta();
                         totalJugador += jugadorCarta4;
+                        totalJugador = valorAs(totalJugador);
                         System.out.println("No puedes pedir más cartas.");
-                    } else break;
+                    }
                 }
             }
+
 
             // Evaluación de resultados y cálculo de ganancias/pérdidas
 
             // BLACKJACK natural (21 con las dos primeras cartas)
-            if (totalJugador == 21 && turnos == 0){
+            if (totalJugador == 21 && jugadorCarta3 == 0 && jugadorCarta4 == 0){
                 estadoCartas();
                 System.out.println("BLACKJACK! Multiplicaste tu apuesta por 2.5");
                 dinero += apuesta * 2.5; // Paga 2.5x
@@ -144,15 +150,11 @@ public class Blackjack {
                 dinero += apuesta; // Devuelve la apuesta
             }
 
-            // Calcula el winrate (esto parece tener un error en la fórmula)
-            winrate = partidas * ((double) ganadas / 100);
-
             // Muestra estadísticas de la sesión
             System.out.println("------------------------------------------------------");
             System.out.println("Dinero actual: " + dinero);
             System.out.println("Partidas ganadas: " + ganadas);
             System.out.println("Partidas perdidas: " + perdidas);
-            System.out.println("Winrate: " + winrate);
 
             // Verifica si el jugador se quedó sin dinero
             if (dinero <= 0){
@@ -167,16 +169,19 @@ public class Blackjack {
         }
     }
 
-    /*Genera una carta aleatoria return valor de la carta (1-10, donde J, Q, K valen 10) */
+    // Genera una carta aleatoria return valor de la carta (1-10, donde J, Q, K valen 10)
     public static int generarCarta() {
         int carta = (int) (Math.random() * 13) + 1; // Genera un número entre 1 y 13
         if (carta > 10) {
             carta = 10; // Las figuras (J, Q, K) valen 10
         }
+        if (carta == 1) {
+            carta = 11; // El As (1) vale 11
+        }
         return carta;
     }
 
-    /* Muestra el estado final de las cartas del dealer y del jugador*/
+    // Muestra el estado final de las cartas del dealer y del jugador
     public static void estadoCartas() {
 
         // Imprime las cartas del dealer
@@ -192,4 +197,47 @@ public class Blackjack {
         else System.out.println();
     }
 
+    // Metodo que determina el valor de la mano según su total y si tiene as
+
+    public static int valorAs(int total) {
+        // Si nos pasamos y hay Ases que valen 11, los convertimos a 1
+        while (total > 21) {
+            if (jugadorCarta1 == 11) {
+                jugadorCarta1 = 1;
+                total -= 10;
+            } else if (jugadorCarta2 == 11) {
+                jugadorCarta2 = 1;
+                total -= 10;
+            } else if (jugadorCarta3 == 11) {
+                jugadorCarta3 = 1;
+                total -= 10;
+            } else if (jugadorCarta4 == 11) {
+                jugadorCarta4 = 1;
+                total -= 10;
+            } else {
+                break; // No hay más Ases para ajustar
+            }
+        }
+        return total;
+    }
+    public static int valorAsDealer(int total) {
+        while (total > 21) {
+            if (dealerCarta1 == 11) {
+                dealerCarta1 = 1;
+                total -= 10;
+            } else if (dealerCarta2 == 11) {
+                dealerCarta2 = 1;
+                total -= 10;
+            } else if (dealerCarta3 == 11) {
+                dealerCarta3 = 1;
+                total -= 10;
+            } else if (dealerCarta4 == 11) {
+                dealerCarta4 = 1;
+                total -= 10;
+            } else {
+                break;
+            }
+        }
+        return total;
+    }
 }
