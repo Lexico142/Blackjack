@@ -23,7 +23,6 @@ public class Blackjack {
         double dinero = 100; // Dinero inicial del jugador
         int ganadas = 0; // Contador de partidas ganadas
         int perdidas = 0; // Contador de partidas perdidas
-        int partidas = 0; // Contador total de partidas
 
         // Mensaje de bienvenida
         System.out.println("--------------------------- Bienvenido/a a Blackjack. -----------------------------------");
@@ -31,6 +30,16 @@ public class Blackjack {
 
         // Bucle principal del juego
         while (salir == false) {
+
+            // Reinicio del valor de las cartas después de cada juego
+            dealerCarta1 = 0;
+            dealerCarta2 = 0;
+            dealerCarta3 = 0;
+            dealerCarta4 = 0;
+            jugadorCarta1 = 0;
+            jugadorCarta2 = 0;
+            jugadorCarta3 = 0;
+            jugadorCarta4 = 0;
 
             int totalJugador = 0; // Suma total de cartas del jugador
             int totalDealer = 0; // Suma total de cartas del dealer
@@ -81,6 +90,7 @@ public class Blackjack {
             // Muestra las cartas del jugador y pregunta si quiere pedir más
             System.out.println("Jugador: " + jugadorCarta1 + " " + jugadorCarta2);
             System.out.println("Quieres pedir una carta? (true/false)");
+
             boolean pedirCarta = src.nextBoolean();
 
             if (pedirCarta) {
@@ -155,7 +165,6 @@ public class Blackjack {
             System.out.println("Dinero actual: " + dinero);
             System.out.println("Partidas ganadas: " + ganadas);
             System.out.println("Partidas perdidas: " + perdidas);
-            System.out.println("Partidas jugadas: " + partidas);
 
             // Verifica si el jugador se quedó sin dinero
             if (dinero <= 0){
