@@ -155,6 +155,7 @@ public class Blackjack {
             System.out.println("Dinero actual: " + dinero);
             System.out.println("Partidas ganadas: " + ganadas);
             System.out.println("Partidas perdidas: " + perdidas);
+            System.out.println("Partidas jugadas: " + partidas);
 
             // Verifica si el jugador se quedó sin dinero
             if (dinero <= 0){
@@ -200,7 +201,7 @@ public class Blackjack {
     // Metodo que determina el valor de la mano según su total y si tiene as
 
     public static int valorAs(int total) {
-        // Si nos pasamos y hay Ases que valen 11, los convertimos a 1
+        // Si nos pasamos y hay Ases que valen 11, los convertimos a 1 (Jugador)
         while (total > 21) {
             if (jugadorCarta1 == 11) {
                 jugadorCarta1 = 1;
@@ -220,6 +221,7 @@ public class Blackjack {
         }
         return total;
     }
+    // Si nos pasamos y hay Ases que valen 11, los convertimos a 1 (Dealer)
     public static int valorAsDealer(int total) {
         while (total > 21) {
             if (dealerCarta1 == 11) {
